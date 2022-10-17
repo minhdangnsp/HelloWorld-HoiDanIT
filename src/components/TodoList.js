@@ -10,17 +10,23 @@ import React from "react";
 // }
 
 class TodoList extends React.Component {
-    
+
+    //khai báo state
     state = {
         name: "Erric",
         channel: "Hoi Dan IT"
     }
+
+    //gán lại giá trị cho state
     render() {
         return (
             <div>
                 {/* từ khoá 'this' dùng trong trường hợp sử dụng class thì this sẽ hiểu là biến này dùng trong 
                 phạm vi component đó */}
-                Hello Todo List with name {this.state.name} and channel {this.state.channel}
+                <label>Name</label>
+                <input type="text" onChange={(event) => this.setState({ name: event.target.value })}></input>
+                <br/><br/>
+                Hello Todo List with name {this.state.name}
             </div>
         )
     }
