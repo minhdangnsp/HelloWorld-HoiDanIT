@@ -21,10 +21,7 @@ const TodoList = () => {
                 onChange={(event) => {
                     setName(event.target.value)
                 }} />
-            {/* Cách 1 khi gọi hàm handleClickBtn đối với sự kiện onClick - dùng arrow function */}
             <button type='button' onClick={() => handleClickBtn()}>Submit</button>
-            {/* Cách 2 khi gọi hàm handleClickBtn đối với sự kiện onClick - không dùng cặp dấu () */}
-            <button type='button' onClick={handleClickBtn}>Submit</button>
             <br /><br />
             Hello Todo List with name {name}
         </div>

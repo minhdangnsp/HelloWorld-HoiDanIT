@@ -6,17 +6,12 @@ function App() {
 
   const x = [1, 2, 3, { "name": "eric" }]
 
-  //Kiểm tra giá trị của biến - JavaScript
-  console.log("values x= ", x)
-
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Hello world React with x = {JSON.stringify(x)}
-          {/* Kiểm tra giá trị của biến trong chính block html - JSX */}
-          {console.log("values x= ", x)}
         </p>
         <TodoList />
 
