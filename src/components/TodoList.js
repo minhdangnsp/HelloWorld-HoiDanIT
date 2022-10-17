@@ -15,13 +15,20 @@ const TodoList = () => {
         ]
     )
 
+    const randomIntFromInterval = (min, max) => { // min and max included 
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+
+    const rndInt = randomIntFromInterval(1, 6)
+
     const handleClickBtn = () => {
+        let todoId = randomIntFromInterval(4, 9999999999999) //random ngẫu nhiên
         let todoItem = {
-            id: "abc", name: todo
+            id: `todo${todoId}`, name: todo  //string template
         }
 
         //Cách 1: dùng spread để thêm phần tử todoItem vào trong array
-        setListTodo([...listTodo, todoItem])  //spread operator
+        // setListTodo([...listTodo, todoItem])  //spread operator
 
         //Cách 2:
         //Nếu không sử dùng clone() thì cả currentTodoList và listTodo đều trỏ về cùng 1 bộ nhớ, 
@@ -30,6 +37,13 @@ const TodoList = () => {
         currentTodoList.push(todoItem);
         setListTodo(currentTodoList)
     }
+
+    const handleDeleteTodo = (id) => {
+        let currentTodoList = _.clone(listTodo); //sử dụng hàm clone của thư viện lodoash để sao chép listTodo
+        currentTodoList = currentTodoList.filter(item => item.id !== id); //filter các item có id khác  id của delete item
+        setListTodo(currentTodoList)
+    }
+
     return (
         <div>
             {/* từ khoá 'this' dùng trong trường hợp sử dụng class thì this sẽ hiểu là biến này dùng trong 
@@ -47,7 +61,7 @@ const TodoList = () => {
             {listTodo.map((item, index) => {
                 return (
                     // Cần phải có 1 unique key cho mỗi element
-                    <div key={item.id}>
+                    <div key={item.id} onClick={() => handleDeleteTodo(item.id)}>
                         {item.name}
                     </div>
                 )
