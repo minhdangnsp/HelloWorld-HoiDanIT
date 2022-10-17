@@ -1,29 +1,57 @@
 import React, { useState } from "react";
+import _ from 'lodash'
 
 
 const TodoList = () => {
 
-    //Hàm useState trả về 2 giá trị, 1 là tên biến, 2 là function để cập nhật lại biến này.
-    //không nhất thiết phải đặt là setName, có thể đặt tên bất kỳ
-    const [name, setName] = useState("")
+    const [todo, setTodo] = useState("");
 
-    const handleClickBtn = (event, msg) => {
-        console.log(">>run inside handleClickBtn ----:", name)
+    //Biến này dùng để quản lý tất các các đầu việc của chúng ta
+    const [listTodo, setListTodo] = useState(
+        [
+            { id: 'todo1', name: 'Watching yotube' },
+            { id: 'todo2', name: 'Using facebook' },
+            { id: 'todo3', name: 'Reading book' }
+        ]
+    )
+
+    const handleClickBtn = () => {
+        let todoItem = {
+            id: "abc", name: todo
+        }
+
+        //Cách 1: dùng spread để thêm phần tử todoItem vào trong array
+        setListTodo([...listTodo, todoItem])  //spread operator
+
+        //Cách 2:
+        //Nếu không sử dùng clone() thì cả currentTodoList và listTodo đều trỏ về cùng 1 bộ nhớ, 
+        // mà listTodo là khai báo biến const, do đó sẽ không thay đổi giá trị.
+        let currentTodoList = _.clone(listTodo); //sử dụng hàm clone của thư viện lodoash để sao chép listTodo
+        currentTodoList.push(todoItem);
+        setListTodo(currentTodoList)
     }
     return (
         <div>
             {/* từ khoá 'this' dùng trong trường hợp sử dụng class thì this sẽ hiểu là biến này dùng trong 
                 phạm vi component đó */}
-            <label>Name</label>
+            <label>Todo's Name: </label>
             {/* gán giá trị của ô input là name để TRÁNH trường hợp khi đổi giá giá trị của name bằng tool thì
             trên ô input không thay đổi */}
-            <input value={name} type="text"
+            <input value={todo} type="text"
                 onChange={(event) => {
-                    setName(event.target.value)
+                    setTodo(event.target.value)
                 }} />
             <button type='button' onClick={() => handleClickBtn()}>Submit</button>
             <br /><br />
-            Hello Todo List with name {name}
+            <div>----- List todo -----</div>
+            {listTodo.map((item, index) => {
+                return (
+                    // Cần phải có 1 unique key cho mỗi element
+                    <div key={item.id}>
+                        {item.name}
+                    </div>
+                )
+            })}
         </div>
     );
 }
