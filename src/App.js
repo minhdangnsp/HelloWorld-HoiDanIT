@@ -10,9 +10,7 @@ function App() {
   console.log("values x= ", x)
 
   return (
-    <div className="App" style={
-      { border: '1px solid red', textTransform: 'uppercase' }
-    }>
+    <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
